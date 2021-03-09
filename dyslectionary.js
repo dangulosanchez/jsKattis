@@ -7,11 +7,13 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
+//read all input and save into "input" array
 rl.on('line', (line) => {
     input.push(line);
 });
 
 
+//once input is read, solve it per groups of data
 rl.on('close', function () {
     const groups = formatInput(input);
     for(let i = 0; i < groups.length; i++){
@@ -23,6 +25,7 @@ rl.on('close', function () {
 });
 
 
+//sorts the list of reversed words, adds padding
 function solveDyslectionary(group){
     let words = group.words;
     let maxLength = group.maxLength;
@@ -39,6 +42,8 @@ function solveDyslectionary(group){
 
 function formatInput(input){
     input.push("");
+    //each "group" consists of the words and the maximum length of a string
+    //this is to avoid having to run through the array unecessarily again
     const groups = new Array({
         words: new Array(),
         maxLength: 0
@@ -61,6 +66,8 @@ function formatInput(input){
             currentMaxLength = Math.max(input[i].length, currentMaxLength);
         }
     }
+    
+    //to catch errors
     for(let i = 0; i < groups.length; i++){
         if(groups[i].words.length === 0){
             groups.shift();
